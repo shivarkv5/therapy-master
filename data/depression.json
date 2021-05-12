@@ -1,0 +1,23 @@
+{
+    "node1": {
+        "prompt": "Sorry to hear that. How long have you had depression",
+        "open_answer":true,
+        "answers": {
+            "follow_up":"node2"
+        }
+    },
+    "node2":{
+        "prompt":"Ok. How are you feeling today?",
+        "open_answer":true,
+        "answers": {
+            "follow_up":"node3"
+        }
+    },
+    "node3":{
+        "prompt":"This is one time problem. You will get over it.",
+        "open_answer":true,
+        "answers": {
+            "follow_up":"node1"
+        }
+    }    
+}

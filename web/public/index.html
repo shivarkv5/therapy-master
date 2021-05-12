@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<style>
+
+
+body{
+font-family: 'Open Sans', sans-serif;
+font-weight: 300;
+margin: auto;
+display: flex;
+justify-content: center;
+}
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: #fff;
+  color: #2c87f0;
+  padding: 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  font-size:36px;
+  border-radius:50%;
+  box-shadow:5px 5px 14px 0 rgba(0,0,0,0.5);
+  outline: none;
+}
+/* The popup chat - hidden by default */
+.chat-popup {
+  position: absolute;
+  height: 100%;
+  width: 30%;
+  border: 0px solid #f1f1f1;
+  z-index: 9;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+  border-radius: 15px;
+}
+.chat-content {
+  height: 100%;
+}
+
+/* Add styles to the form container */
+.form-container {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #555;
+  color: white;
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  font-size:16px;
+  border-radius:40px;
+}
+.top-close{
+    font-size: 24px;
+    border: none;
+    background: no-repeat;
+    border-radius: 34px;
+    color: #ccc;
+    cursor: pointer;
+    right: 12px;
+    top: 19px;
+    position: absolute;
+}
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: #555;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.bubble, .bubble.me {font-size: 14px; line-height: 20px; border: none !important; line-height: 1.5; font-size: 14px;}
+.chat-window img{ max-width:100%; margin:8px 0;}
+
+
+/* phones */
+@media only screen and (max-width: 767px) {
+  .chat-popup { width: 100%; right: 0.1%; height: 100vh; }
+  .form-container{max-width: 100%;}
+}
+
+/*intial popup*/
+.ivy-pos-bottom-right.ivy-t-circle .ivy-popup {
+
+bottom: 113px;
+right: 28px;
+top: auto;
+left: auto;
+
+}
+.ivy-popup {
+    position: fixed;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 446px;
+    bottom: 124px;
+    right: 28px;
+    border-radius: 15px;
+    z-index: 2147483640;
+    margin: 0;
+    padding: 60px 0 50px;
+    background-color: #FFF;
+    -webkit-box-shadow: 0px 0px 35px 3px rgba(0, 0, 0, 0.17);
+    box-shadow: 0px 0px 35px 3px rgba(0, 0, 0, 0.17);
+    cursor: pointer;
+    color: #212429;
+    -webkit-transition: background-color 0.6s ease;
+    transition: background-color 0.6s ease;
+}
+.ivy-popup .ivy-img {
+    /* width: 115px;
+    height: 115px;
+    border-radius: 100%; */
+    position: absolute;
+    z-index: 2;
+    top: -15px;
+     left: calc(35% - 58px);
+}
+.ivy-popup .ivy-img::before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -1px;
+    left: -1px;
+    border-radius: 100%;
+    opacity: 0.5;
+    content: "";
+}
+.ivy-bchat .ivy-img figure {
+    /* background-color: #0062a0; */
+}
+ .ivy-popup .ivy-img figure {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    position: relative;
+    margin: 0;
+}
+.ivy-popup .ivy-img img {
+    background-color: #FFF;
+    width: 100%;
+    display: block;
+    border-radius: 100%;
+}
+.ivy-popup .ivy-header {
+    position: relative;
+    padding: 25px 20px 30px;
+    overflow: hidden;
+    -webkit-transition: -webkit-transform 0.4s ease-out;
+    transition: -webkit-transform 0.4s ease-out;
+    transition: transform 0.4s ease-out;
+    transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.ivy-popup .ivy-header .ivy-welcome {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    color: #212429;
+    text-align: center;
+    margin: 25px 0 0px 0;
+}
+.ivy-popup .ivy-header .ivy-intro {
+    padding: 5px 25px 10px;
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+}
+.ivy-popup .ivy-footer {
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+.ivy-popup .ivy-footer .ivy-input:only-child {
+    width: 95%;
+}
+.ivy-popup .ivy-footer .ivy-input, .ivy-popup .ivy-footer .ivy-button {
+    background-color: #FFF;
+    opacity: 1;
+    cursor: pointer;
+    -webkit-transition: all 0.6s ease, color 0.2s ease;
+    transition: all 0.6s ease, color 0.2s ease;
+    border-radius: 15px;
+    margin: auto;
+}
+ivy-popup .ivy-footer .ivy-input input, .ivy-popup .ivy-footer .ivy-input span {
+    background-color: #eee;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 20px;
+    border: none;
+    outline: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #393b3f;
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    border-radius: 15px;
+}
+.ivy-bchat .ivy-chat-header {
+    color: #fff;
+    background-color: rgb(56, 152, 241);
+}
+.ivy-bchat .ivy-chat-header .ivy-chat-close {
+    width: 40px;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+}
+.ivy-bchat .ivy-text-loader {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: -18px 0 0 0;
+    text-align: center;
+}
+.ivy-bchat .ivy-chat-header {
+    padding: 30px 0px 30px 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.ivy-chat-header .fa.fa-times{ float:right; margin-right: 16px;}
+.ivy-input .fa-paper-plane{ float:right; margin: 13px 15px 0 0; color: rgb(68, 67, 67);}
+</style>
+</head>
+<body>
+
+
+
+
+
+
+<div class="chat-popup" id="myForm">
+  <div class="form-container">
+<div class="chat-content">
+  <iframe id="iframe" width="100%" name="avaamoIframe" allow="geolocation; microphone" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" msallowfullscreen="msallowfullscreen" mozallowfullscreen="mozallowfullscreen" style="
+  height: 98%;
+  border: none;
+  float: auto;"></iframe>
+</div>
+  </div>
+</div>
+
+<style>
+.figure{
+  display: flex;
+  margin: auto;
+  width: auto;
+  object-fit:scale-down
+}
+.circle {
+    width: 60px;
+    height: 60px;
+    background: #efefef;
+    border-radius: 50% 50% 15% 50%;
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c87f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-top: 5px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.text{
+  width: 100%;
+  position: absolute;
+  top:10px;
+  left: 100px;
+  color: #cccccc;
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+</style>
+
+
+<script>
+
+var phone = "+1<%= phone.replace('+1','') %>";
+document.getElementById('iframe').setAttribute('src', src="index1.html?user_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjczNzIxMjM0MDkiLCJlbWFpbCI6Im1hcnR5LnNhbXBzb25AcG9wdXByeC5jb20iLCJpYXQiOjE1MTYyMzkwMjJ9.5lyMwNcD6YrBeoMFQrUh0pE4vOxwyoqFEwdOIqdnjGE&phone="+phone)
+</script>
+
+</body>
+</html>

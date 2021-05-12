@@ -1,0 +1,68 @@
+{
+    "node1": {
+        "prompt": "Hi!  I am Rachel Bot, what is your name or nickname?",
+        "open_answer": true,
+        "answers": {
+            "follow_up": "node2"
+        }
+    },
+    "node2": {
+        "prompt": "that's a nice name! It is nice to meet you!  I am a hybrid bot - part AI Assistant of Rachel's and part Rachel, ha ha. ",
+        "open_answer": false,
+        "answers": {
+            "That is a unique idea!": {
+                "follow_up": "node3"
+            },
+            "I like it": {
+                "follow_up": "node3"
+            }
+        }
+    },
+    "node3": {
+        "prompt": "Rachel created me because she wants to help as many people as she can, but has limited time to meet with people.  I may not be as helpful she is in person, but I am available 24X7 !  I'm excited to try and help you!",
+        "open_answer": false,
+        "answers": {
+            "Ok, Great": {
+                "follow_up": "node4"
+            },
+            "Great": {
+                "follow_up": "node4"
+            }
+        }
+    },
+    "node4": {
+        "prompt": "Just so you know, our conversation is private - I do have a memory and remember what your share with me, but want to assure you that I will keep everything you share with me in your private vault.  Are you okay with this?",
+        "open_answer": false,
+        "answers": {
+            "Sure, No Problem": {
+                "follow_up": "node5"
+            },
+            "Kind Of": {
+                "follow_up": "node5"
+            }
+        }
+    },
+    "node5": {
+        "prompt": "Well Thank you!",
+        "open_answer": false,
+        "answers": {
+            "PROCEED FURTHER": {
+                "follow_up": "node6"
+            },
+            "QUIT": {
+                "follow_up": "node1"
+            }
+        }
+    },
+    "node6": {
+        "prompt": "What is bothering you today. Please describe your mood briefly.",
+        "open_answer": true,
+        "answers": {
+            "code": "detect_problem"
+        }
+    },
+
+    "No": {
+        "follow_up": "NodePause"
+    }
+}

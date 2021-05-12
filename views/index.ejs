@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bot Conversation Tester</title>
+    <style>
+        * { margin: 0 15px 20px 14px; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; width: 70%}
+        /* form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 70%;} */
+        form input { padding: 10px; width: 70%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <script src="../../socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  </head>
+  <body>
+      <div vertical layout>
+        <div><ul id="messages"></ul></div>
+        <div flex>
+            <form action="/" method="POST" id="chatForm">
+            <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
+        </form>
+        </div>
+        <div>C - The simple conversation tester</div>
+     </div>
+
+    <script>
+            var socket = io.connect('http://localhost:8000');
+            // submit text message without reload/refresh the page
+            $('form').submit(function(e){
+                e.preventDefault(); // prevents page reloading
+                socket.emit('chat_message', $('#txt').val());
+                $('#txt').val('');
+                return false;
+            });
+            // append the chat text message
+            socket.on('chat_message', function(msg){
+                $('#messages').append($('<li>').html(msg));
+            });
+            // append text if someone is online
+            socket.on('is_online', function(username) {
+                $('#messages').append($('<li>').html(username));
+            });
+            // ask username
+            var username = prompt('Please tell me your name');
+            socket.emit('username', username);
+    </script>
+  </body>
+</html>
